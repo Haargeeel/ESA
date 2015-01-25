@@ -1,0 +1,71 @@
+package org.dieschnittstelle.jee.esa.basics;
+
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.dieschnittstelle.jee.esa.basics.annotations.AnnotatedStockItemBuilder;
+import org.dieschnittstelle.jee.esa.basics.annotations.StockItemProxyImpl;
+
+
+public class ShowAnnotations {
+
+	public static void main(String[] args) {
+		// we initialise the collection
+		StockItemCollection collection = new StockItemCollection(
+				"stockitems_annotations.xml", new AnnotatedStockItemBuilder());
+		// we load the contents into the collection
+		collection.load();
+
+		for (IStockItem consumable : collection.getStockItems()) {
+			;
+			showAttributes(((StockItemProxyImpl)consumable).getProxiedObject());
+		}
+
+		// we initialise a consumer
+		Consumer consumer = new Consumer();
+		// ... and let them consume
+		consumer.doShopping(collection.getStockItems());
+	}
+
+	/*
+	 * UE BAS2 
+	 */
+	private static void showAttributes(Object consumable) {
+		String className = consumable.getClass().getSimpleName();
+		Field[] fields = consumable.getClass().getDeclaredFields();
+		int count = fields.length;
+		int lastIndex = fields.length - 1;
+		StringBuilder result = new StringBuilder();
+		result.append("{" + className + " ");
+		for (int i = 0; i < count; i++) {
+			Field f = fields[i];
+			String fieldName = f.getName();
+			result.append(fieldName + ":");
+			List<Method> methods = getMethods(consumable);
+			for (Method m : methods)
+				System.out.println(m.getName());
+//			String methodName = "get" + f.getName().substring(0, 1).toUpperCase() + f.getName().substring(1);
+//			System.out.println(methodName);
+			result.append("WERT");
+			if (i < lastIndex)
+				result.append(",");
+		}
+		result.append("}");
+		System.out.println(result);
+
+	}
+	
+	private static List<Method> getMethods(Object consumable) {
+		Method[] allMethods = consumable.getClass().getDeclaredMethods();
+		List<Method> getMethods = new ArrayList<Method>();
+		for (Method m : allMethods) {
+			if (m.getName().startsWith("get"))
+				getMethods.add(m);
+		}
+		return getMethods;
+	}
+
+}

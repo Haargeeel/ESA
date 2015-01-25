@@ -1,0 +1,6 @@
+2015-01-25 00:19:39,831 [Worker-168] INFO  c.n.h.c.p.n.NettyAsyncHttpProvider - Number of application's worked threads is 16
+2015-01-25 00:19:40,198 [New I/O client worker #1-1] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcore/4.1.4/httpcore-4.1.4-sources.jar
+2015-01-25 00:19:40,578 [New I/O client worker #1-1] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcore/4.1.4/httpcore-4.1.4-sources.jar
+2015-01-25 00:23:12,871 [Worker-178] INFO  c.n.h.c.p.n.NettyAsyncHttpProvider - Number of application's worked threads is 16
+2015-01-25 00:23:13,193 [New I/O client worker #2-1] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/org/apache/tomcat/tomcat-servlet-api/7.0.33/tomcat-servlet-api-7.0.33-sources.jar
+2015-01-25 00:23:14,357 [New I/O client worker #2-1] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/org/apache/tomcat/tomcat-servlet-api/7.0.33/tomcat-servlet-api-7.0.33-sources.jar

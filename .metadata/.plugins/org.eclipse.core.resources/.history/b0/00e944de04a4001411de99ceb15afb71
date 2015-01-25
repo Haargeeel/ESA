@@ -1,0 +1,53 @@
+package org.dieschnittstelle.jee.esa.basics;
+
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
+import org.dieschnittstelle.jee.esa.basics.annotations.AnnotatedStockItemBuilder;
+import org.dieschnittstelle.jee.esa.basics.annotations.StockItemProxyImpl;
+
+public class ShowAnnotations {
+
+	public static void main(String[] args) {
+		// we initialise the collection
+		StockItemCollection collection = new StockItemCollection(
+				"stockitems_annotations.xml", new AnnotatedStockItemBuilder());
+		// we load the contents into the collection
+		collection.load();
+
+		for (IStockItem consumable : collection.getStockItems()) {
+			;
+			showAttributes(((StockItemProxyImpl)consumable).getProxiedObject());
+		}
+
+		// we initialise a consumer
+		Consumer consumer = new Consumer();
+		// ... and let them consume
+		consumer.doShopping(collection.getStockItems());
+	}
+
+	/*
+	 * UE BAS2 
+	 */
+	private static void showAttributes(Object consumable) {
+		Class<?> klass = consumable.getClass();
+		String[] klassNameArray = klass.toString().split(".");
+		String klassName = klassNameArray[klassNameArray.length-1];
+		String result = "{" + klassName;
+		System.out.println(result);
+		for (Field f : klass.getDeclaredFields()){
+			System.out.println("declared fields");
+			System.out.println(f.toGenericString());
+		}
+		for (Field f : klass.getFields()){
+			System.out.println("fields");
+			System.out.println(f.toGenericString());
+		}
+//		for (Method m : consumable.getClass().getDeclaredMethods()) {
+//			System.out.println(m.toString());
+//			
+//		}
+	}
+
+}

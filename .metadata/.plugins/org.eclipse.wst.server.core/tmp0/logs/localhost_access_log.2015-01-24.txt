@@ -1,0 +1,4 @@
+127.0.0.1 - - [24/Jan/2015:23:05:13 +0100] "GET / HTTP/1.1" 404 951
+127.0.0.1 - - [24/Jan/2015:23:05:36 +0100] "GET / HTTP/1.1" 404 951
+0:0:0:0:0:0:0:1 - - [24/Jan/2015:23:05:37 +0100] "GET /org.dieschnittstelle.jee.esa.servlets/ HTTP/1.1" 200 1855
+127.0.0.1 - - [24/Jan/2015:23:07:41 +0100] "GET /org.dieschnittstelle.jee.esa.servlets/gui/touchpoints HTTP/1.1" 403 961

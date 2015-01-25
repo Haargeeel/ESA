@@ -1,0 +1,86 @@
+package org.dieschnittstelle.jee.esa.basics;
+
+
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.text.Annotation;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.dieschnittstelle.jee.esa.basics.annotations.AnnotatedStockItemBuilder;
+import org.dieschnittstelle.jee.esa.basics.annotations.DisplayAs;
+import org.dieschnittstelle.jee.esa.basics.annotations.StockItemProxyImpl;
+
+
+public class ShowAnnotations {
+
+	public static void main(String[] args) {
+		// we initialise the collection
+		StockItemCollection collection = new StockItemCollection(
+				"stockitems_annotations.xml", new AnnotatedStockItemBuilder());
+		// we load the contents into the collection
+		collection.load();
+
+		for (IStockItem consumable : collection.getStockItems()) {
+			;
+			showAttributes(((StockItemProxyImpl)consumable).getProxiedObject());
+		}
+
+		// we initialise a consumer
+		Consumer consumer = new Consumer();
+		// ... and let them consume
+		consumer.doShopping(collection.getStockItems());
+	}
+
+	/*
+	 * UE BAS2 
+	 */
+	private static void showAttributes(Object consumable) {
+		String className = consumable.getClass().getSimpleName();
+		Field[] fields = consumable.getClass().getDeclaredFields();
+		int count = fields.length;
+		int lastIndex = fields.length - 1;
+		StringBuilder result = new StringBuilder();
+		result.append("{" + className + " ");
+		for (int i = 0; i < count; i++) {
+			Field f = fields[i];
+			String fieldName = f.getName();
+			DisplayAs annotation = f.getAnnotation(DisplayAs.class);
+			if (annotation == null) {
+				result.append(fieldName + ":");
+			} else {
+				result.append(annotation.value() + ":");
+				System.out.println("JAAA");
+			}
+			List<Method> methods = getMethods(consumable);
+			String fieldNameLower = fieldName.toLowerCase();
+			for(Method m : methods) {
+				if (m.getName().toLowerCase().endsWith(fieldNameLower))
+					try {
+						result.append(m.invoke(consumable));
+					} catch (IllegalAccessException | IllegalArgumentException
+							| InvocationTargetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			}
+			if (i < lastIndex)
+				result.append(",");
+		}
+		result.append("}");
+		System.out.println(result);
+
+	}
+	
+	private static List<Method> getMethods(Object consumable) {
+		Method[] allMethods = consumable.getClass().getDeclaredMethods();
+		List<Method> getMethods = new ArrayList<Method>();
+		for (Method m : allMethods) {
+			if (m.getName().startsWith("get"))
+				getMethods.add(m);
+		}
+		return getMethods;
+	}
+
+}

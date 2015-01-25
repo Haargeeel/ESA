@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item value="true" key="deleteOnExit"/>
+	<item value="/Users/ray/uni/esa/jboss" key="defaultDialogPath"/>
+	<item value="/var/folders/cx/dh3qy8qs32jf73_k29l57__40000gq/T/" key="defaultDestinationPath"/>
+	<section name="downloadRuntimeSection">
+		<item value="true" key="org.jboss.tools.runtime.core.as.702"/>
+	</section>
+</section>
