@@ -1,0 +1,49 @@
+package org.dieschnittstelle.jee.esa.jaxrs;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletContext;
+import javax.ws.rs.core.Context;
+
+import org.dieschnittstelle.jee.esa.entities.GenericCRUDExecutor;
+import org.dieschnittstelle.jee.esa.erp.entities.AbstractProduct;
+import org.dieschnittstelle.jee.esa.erp.entities.IndividualisedProductItem;
+import org.dieschnittstelle.jee.esa.erp.entities.ProductType;
+
+/*
+UE JRS2: implementieren Sie hier die im Interface deklarierten Methoden
+ */
+
+public class ProductCRUDWebServiceImpl implements IProductCRUDWebService {
+
+	private GenericCRUDExecutor<IndividualisedProductItem> productCRUD;
+
+	@Override
+	public IndividualisedProductItem createProduct(
+			IndividualisedProductItem prod) {
+		return (IndividualisedProductItem)this.productCRUD.createObject(prod);
+	}
+
+	@Override
+	public List<IndividualisedProductItem> readAllProducts() {
+		return (List<IndividualisedProductItem>)this.productCRUD.readAllObjects();
+	}
+
+	@Override
+	public IndividualisedProductItem updateProduct(int id,
+			IndividualisedProductItem update) {
+		return (IndividualisedProductItem)this.productCRUD.updateObject(update);
+	}
+
+	@Override
+	public boolean deleteProduct(int id) {
+		return this.productCRUD.deleteObject(id);
+	}
+
+	@Override
+	public IndividualisedProductItem readProduct(int id) {
+		return (IndividualisedProductItem)this.productCRUD.readObject(id);
+	}
+	
+}

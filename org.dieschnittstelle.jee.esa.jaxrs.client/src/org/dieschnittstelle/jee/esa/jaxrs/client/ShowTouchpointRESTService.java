@@ -90,6 +90,7 @@ public class ShowTouchpointRESTService {
 		}
 		// change the name
 		tp.setName("BHT Mensa");
+		tp = serviceClient.updateTouchpoint(tp.getId(), tp);
 
 		/*
 		 * UE JRS1: add a call to the update method, passing tp
